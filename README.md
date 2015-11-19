@@ -9,4 +9,4 @@ External link handling
 
 ## Demo pages
 
-[https://jasonmorris.com/jumplink.js/](https://jasonmorris.com/jumplink.js/)
+[https://jasonmorris.com/outlink.js/](https://jasonmorris.com/outlink.js/)
