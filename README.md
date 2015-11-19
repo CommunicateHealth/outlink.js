@@ -7,6 +7,12 @@ External link handling
 * Inlined external link icon (no image dependencies)
 * Alt and title attributes pull in current domain name (with fallback)
 
-## Demo pages
+## Usage
+
+Add ```class="external"``` to links to open in new window/tab with disclaimer and icon.
+
+Add ```class="gov"``` to links to open in new window/tab without disclaimer or icon.
+
+## Demo page
 
 [http://jasonmorris.com/outlink.js/](http://jasonmorris.com/outlink.js/)
