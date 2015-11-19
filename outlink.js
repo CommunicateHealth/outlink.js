@@ -4,7 +4,7 @@ if (url === "") { url = "this site"; }
 url = url.replace("www.", "");
 
 // Handle external, non-gov links (new window, disclaimer/icon)
-var external = document.getElementsByClassName('external');
+var external = getElementsByClassName(document.body,'external');
 for (var i = 0; i < external.length; ++i) {
   var item = external[i];
   item.setAttribute("target", "_blank");
@@ -12,8 +12,18 @@ for (var i = 0; i < external.length; ++i) {
 }
 
 // Handle .gov links (new window, no disclaimer)
-var gov = document.getElementsByClassName('gov');
+var gov = getElementsByClassName(document.body,'gov');
 for (var i = 0; i < gov.length; ++i) {
   var item = gov[i];
   item.setAttribute("target", "_blank");
+}
+
+// Specific class fetching function to ensure older IE support
+function getElementsByClassName(node, classname) {
+  var a = [];
+  var re = new RegExp('(^| )'+classname+'( |$)');
+  var els = node.getElementsByTagName("*");
+  for(var i=0,j=els.length; i<j; i++)
+    if(re.test(els[i].className))a.push(els[i]);
+  return a;
 }
