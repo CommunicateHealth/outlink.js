@@ -6,6 +6,7 @@ External link handling
 * Vanilla JavaScript, doesn't require jQuery
 * Inlined external link icon (base64 = no image dependencies)
 * Alt and title attributes pull in current domain name (with fallback)
+* Currently unsupported in Internet Explorer 8 and below due to use of ```getElementsByClassName``` 
 
 ## Usage
 
