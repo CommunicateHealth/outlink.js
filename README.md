@@ -11,4 +11,4 @@ External link handling
 
 ## Demo page
 
-[http://jasonmorris.com/outlink.js/](http://jasonmorris.com/outlink.js/)
+[https://communicatehealth1.github.io/outlink.js/](https://communicatehealth1.github.io/outlink.js/)
