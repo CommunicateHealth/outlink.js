@@ -6,13 +6,8 @@ External link handling
 * Vanilla JavaScript, doesn't require jQuery
 * Inlined external link icon (base64 = no image dependencies)
 * Alt and title attributes pull in current domain name (with fallback)
-* Works back to IE 8
-
-## Usage
-
-Add ```class="external"``` to links to open in new window/tab **with** disclaimer and icon.
-
-Add ```class="gov"``` to links to open in new window/tab **without** disclaimer or icon.
+* External site links open in new window/tab **with** disclaimer and icon.
+* External .gov links to open in new window/tab **without** disclaimer or icon.
 
 ## Demo page
 
