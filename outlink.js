@@ -1,4 +1,4 @@
-/*! outlink.js - v0.0.1 - https://github.com/CommunicateHealth1/outlink.js - License: MIT */
+/*! outlink.js - v0.0.1 - https://github.com/communicatehealth/outlink.js - License: MIT */
 
 // Get hostname to use in alt/title text
 var site = location.hostname;
