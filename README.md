@@ -11,4 +11,4 @@ External link handling
 
 ## Demo page
 
-[https://communicatehealth.github.io/outlink.js/](https://communicatehealth.github.io/outlink.js/)
+[http://code.communicatehealth.net/outlink.js/](http://code.communicatehealth.net/outlink.js/)
