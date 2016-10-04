@@ -13,10 +13,7 @@ module.exports = function(grunt) {
           curly: true,
           eqeqeq: true,
           eqnull: true,
-          browser: true,
-          globals: {
-            jQuery: true
-          }
+          browser: true
         },
         files: {
           src: ['Gruntfile.js', 'outlink.js']
