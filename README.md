@@ -3,7 +3,7 @@
 External link handling
 
 * Not bound to click event
-* Vanilla JavaScript, doesn't require jQuery
+* Requires jQuery
 * Inlined external link icon (base64 = no image dependencies)
 * Alt and title attributes pull in current domain name (with fallback)
 * External sites links open in new window/tab **with** disclaimer and icon.

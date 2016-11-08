@@ -21,18 +21,6 @@ module.exports = function(grunt) {
       }
     },
 
-    // Connect - start local webserver
-    connect: {
-      server: {
-        options: {
-          port: 4000,
-          base: '.',
-          hostname: '127.0.0.1',
-          keepalive: true
-        }
-      }
-    },
-
     // Update - find new versions of Grunt dependencies
     devUpdate: {
       main: {
@@ -54,11 +42,8 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
-  // grunt - runs js, then serve tasks (see below)
-  grunt.registerTask('default', ['connect']);
-
-  // grunt js - Error checks, concatenation, minify JS
-  grunt.registerTask('js', ['jshint']);
+  // grunt - runs jshint
+  grunt.registerTask('default', ['jshint']);
 
   // grunt update - Find new versions of Grunt libraries
   grunt.registerTask('update', ['devUpdate']);
