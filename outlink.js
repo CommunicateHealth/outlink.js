@@ -10,10 +10,10 @@
     }
 
     // Collect non-.gov external links, with exclusions
-    var externalLinks = $("a[href^='http']").not($("a[href*='.gov'], .outlink-ignore, a[href*='" + currentSite + "']"));
+    var externalLinks = $("a[href^='http']").not($("a[href*='.gov'], a[href*='.mil'], .outlink-ignore, a[href*='" + currentSite + "']"));
 
     // Collect .gov external links, with exclusions
-    var govLinks = $("a[href*='.gov']").not($(".outlink-ignore, a[href*='" + currentSite + "']"));
+    var govLinks = $("a[href*='.gov'], a[href*='.mil']").not($(".outlink-ignore, a[href*='" + currentSite + "']"));
 
     // Loop non-.gov external links and apply treatment
     $.each(externalLinks, function ( index, value ) {
