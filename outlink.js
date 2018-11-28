@@ -1,40 +1,45 @@
-/* outlink.js: external link handling - https://github.com/communicatehealth/outlink.js (MIT) */
-(function () {
+var currentSite = "this site";
+var disclaimer = "External Link: You are leaving ";
+var externalLinks;
+var icon;
+var j;
 
-    "use strict";
+if (location.hostname !== "") {
+  currentSite = location.hostname.replace("www.", "");
+}
 
-    // Capture site name for use in exceptions, alt/title attributes
-    var currentSite = "this site";
-    if (location.hostname !== "") {
-        currentSite = location.hostname.replace("www.", "");
-    }
+externalLinks = document.querySelectorAll("a[href^='http']:not(.outlink-ignore):not([href*='" + currentSite + "'])");
+for (j = 0; j < externalLinks.length; j++) {
+  addOpener(externalLinks[j]);
+}
 
-    // Collect non-.gov external links, with exclusions
-    var externalLinks = $("a[href^='http']").not($("a[href*='.gov'], a[href*='.mil'], .outlink-ignore, a[href*='" + currentSite + "']"));
+externalLinks = document.querySelectorAll("a[href^='http']:not([href*='.gov']):not([href*='.mil']):not(.outlink-ignore):not([href*='" +
+    currentSite +
+    "'])");
+for (j = 0; j < externalLinks.length; j++) {
+  addIcon(externalLinks[j]);
+}
 
-    // Collect .gov external links, with exclusions
-    var govLinks = $("a[href*='.gov'], a[href*='.mil']").not($(".outlink-ignore, a[href*='" + currentSite + "']"));
+function addOpener(element) {
+  element.setAttribute("target", "_blank");
+  element.setAttribute("rel", "noopener noreferrer");
+  element.setAttribute("title", disclaimer + currentSite);
+}
 
-    // Loop non-.gov external links and apply treatment
-    $.each(externalLinks, function ( index, value ) {
-        var $this = $(this);
-        $(this).attr({
-            target: "_blank",
-            rel: "noopener noreferrer"
-        });
+function addIcon(element) {
+  if (element.innerHTML.indexOf("<img") === -1) {
+    icon = document.createElement("img");
 
-        // if link contains an image, do not append icon
-        if ($this[0].innerHTML.indexOf('<img') === -1) {
-            $(this).append("<img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQCAQAAACIaFaMAAAAPUlEQVR4AWMgHUz4D4FgdgOQBYVIEggphATzBEYMCZhqrEahCTcAIRaJBggb3agGFOdi8wJZEpgQvwTJAADRrod38NnIHQAAAABJRU5ErkJggg==\" style=\"padding-left: .25em;\" alt=\"External Link: You are leaving " + currentSite + "\" title=\"External Link: You are leaving " + currentSite + "\">");
-        }
-    });
-
-    // Loop .gov links and apply treatment
-    $.each(govLinks, function ( index, value ) {
-        $(this).attr({
-            target: "_blank",
-            rel: "noopener noreferrer"
-        });
-    });
-
-})(this);
+    icon.setAttribute(
+      "src",
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQCAQAAACIaFaMAAAAPUlEQVR4AWMgHUz4D4FgdgOQBYVIEggphATzBEYMCZhqrEahCTcAIRaJBggb3agGFOdi8wJZEpgQvwTJAADRrod38NnIHQAAAABJRU5ErkJggg=="
+    );
+    icon.setAttribute(
+      "style",
+      "padding-left: .25em; display: inline-block; vertical-align: text-bottom;"
+    );
+    icon.setAttribute("alt", disclaimer + currentSite);
+    icon.setAttribute("title", disclaimer + currentSite);
+    element.appendChild(icon);
+  }
+}
