@@ -2,9 +2,8 @@
 
 External link handling
 
-- Not bound to click event
 - Vanilla JavaScript
-- Inlined external link icon (base64 = no image dependencies)
+- Inlined external SVG link icon
 - Alt and title attributes pull in current domain name (with fallback)
 - External sites links open in new window/tab **with** disclaimer and icon.
 - External .gov or .mil links to open in new window/tab **without** disclaimer or icon.
