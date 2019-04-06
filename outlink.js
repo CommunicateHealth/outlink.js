@@ -1,36 +1,47 @@
-(function outlink() {
+(function outlink () {
+
   "use strict";
 
-  var currentSite = "this site";
-  var disclaimer = "External Link: You are leaving ";
-  var externalLinks;
-  var icon;
-  var j;
+  var currentSite = "this site",
+    disclaimer = "External Link: You are leaving ",
+    externalLinks,
+    icon,
+    j;
 
   if (location.hostname !== "") {
+
     currentSite = location.hostname.replace("www.", "");
+
   }
 
   externalLinks = document.querySelectorAll("a[href^='http']:not(.outlink-ignore):not([href*='" + currentSite + "'])");
   for (j = 0; j < externalLinks.length; j++) {
+
     addOpener(externalLinks[j]);
+
   }
 
   externalLinks = document.querySelectorAll("a[href^='http']:not([href*='.gov']):not([href*='.mil']):not(.outlink-ignore):not([href*='" +
       currentSite +
       "'])");
   for (j = 0; j < externalLinks.length; j++) {
+
     addIcon(externalLinks[j]);
+
   }
 
-  function addOpener(element) {
+  function addOpener (element) {
+
     element.setAttribute("target", "_blank");
     element.setAttribute("rel", "noopener noreferrer");
     element.setAttribute("title", disclaimer + currentSite);
+
   }
 
-  function addIcon(element) {
+  function addIcon (element) {
+
     if (element.innerHTML.indexOf("<img") === -1) {
+
       icon = document.createElement("img");
 
       icon.setAttribute(
@@ -44,6 +55,9 @@
       icon.setAttribute("alt", disclaimer + currentSite);
       icon.setAttribute("title", disclaimer + currentSite);
       element.appendChild(icon);
+
     }
+
   }
+
 }());
