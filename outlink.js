@@ -7,7 +7,7 @@
     linkIconData =
       "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA3NjggNzY4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGZpbGw9IiM2NjYiIGQ9Im02NDAgNjQwaC01MTJ2LTUxMC4wOWwxMjgtMS45MXYtMTI4aC0yNTZ2NzY4aDc2OHYtMzIwaC0xMjh6bS0yNTYtNjQwIDEyOCAxMjgtMTkyIDE5MiAxMjggMTI4IDE5Mi0xOTIgMTI4IDEyOHYtMzg0eiIvPjwvc3ZnPgo=",
     linkIconStyle =
-      "padding-left: 0.25rem; margin-right: 0.125rem; display: inline-block; vertical-align: middle;",
+      "margin: 0 0.25rem; display: inline-block; vertical-align: baseline;",
     linkIconWidth = "12",
     linkIconHeight = "12",
     linkSelector =
@@ -34,13 +34,15 @@
   disclaimerInlineText = "External Link: You are leaving " + siteName;
 
   disclaimerBlockText =
-    '<p>This icon (<img src="' +
+    '<p>This icon <img src="' +
     linkIconData +
     '" width="' +
     linkIconWidth +
     '" height="' +
     linkIconHeight +
-    '" alt="External link icon">) means that you are leaving ' +
+    '" alt="External link icon" style="' +
+    linkIconStyle +
+    '"> means that you are leaving ' +
     siteName +
     ' and entering an external website. <a href="' +
     disclaimerLink +
@@ -56,7 +58,7 @@
   }
 
   if (linkListIcon) {
-    if (disclaimerContainer) {
+    if (linkListIcon.length > 0 && disclaimerContainer) {
       showDisclaimer();
     }
 
@@ -68,7 +70,7 @@
   function addOpener(element) {
     element.setAttribute("target", "_blank");
     element.setAttribute("rel", "noopener noreferrer");
-    element.setAttribute("title", disclaimerInlineText + siteName);
+    element.setAttribute("title", disclaimerInlineText);
   }
 
   function addIcon(element) {
@@ -77,7 +79,7 @@
 
       linkIcon.setAttribute("src", linkIconData);
       linkIcon.setAttribute("style", linkIconStyle);
-      linkIcon.setAttribute("alt", disclaimerInlineText + siteName);
+      linkIcon.setAttribute("alt", disclaimerInlineText);
       linkIcon.setAttribute("width", linkIconWidth);
       linkIcon.setAttribute("height", linkIconHeight);
       element.appendChild(linkIcon);
