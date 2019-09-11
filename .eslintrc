@@ -8,7 +8,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:es5/no-es2015",
-    "plugin:es5/no-es2016"
+    "plugin:es5/no-es2016",
+    "plugin:prettier/recommended"
   ],
 
   "parser": "esprima",
@@ -83,7 +84,6 @@
     "radix": "error",
     "require-await": "error",
     "vars-on-top": "error",
-    "wrap-iife": "error",
     "yoda": "error",
     "strict": ["error", "safe"],
     "no-label-var": "error",
@@ -162,7 +162,6 @@
     "no-restricted-syntax": "error",
     "no-tabs": "error",
     "no-ternary": "error",
-    "no-trailing-spaces": "error",
     "no-underscore-dangle": "error",
     "no-unneeded-ternary": "error",
     "no-whitespace-before-property": "error",
@@ -174,11 +173,9 @@
     "one-var-declaration-per-line": "error",
     "operator-assignment": "error",
     "operator-linebreak": "error",
-    "padded-blocks": "error",
     "padding-line-between-statements": "error",
     "prefer-object-spread": "error",
     "quote-props": "error",
-    "quotes": "error",
     "semi": "error",
     "semi-spacing": ["error", {
       "after": true,
@@ -187,7 +184,6 @@
     "semi-style": ["error", "last"],
     "sort-keys": "error",
     "space-before-blocks": "error",
-    "space-before-function-paren": "error",
     "space-in-parens": "error",
     "space-infix-ops": "error",
     "space-unary-ops": "error",

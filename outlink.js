@@ -1,63 +1,91 @@
-(function outlink () {
-
+(function outlink() {
   "use strict";
 
-  var currentSite = "this site",
-    disclaimer = "External Link: You are leaving ",
-    externalLinks,
-    icon,
-    j;
+  var linkClass = "outlink",
+    linkClassIgnore = "outlink-ignore",
+    linkIcon,
+    linkIconData =
+      "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA3NjggNzY4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGZpbGw9IiM2NjYiIGQ9Im02NDAgNjQwaC01MTJ2LTUxMC4wOWwxMjgtMS45MXYtMTI4aC0yNTZ2NzY4aDc2OHYtMzIwaC0xMjh6bS0yNTYtNjQwIDEyOCAxMjgtMTkyIDE5MiAxMjggMTI4IDE5Mi0xOTIgMTI4IDEyOHYtMzg0eiIvPjwvc3ZnPgo=",
+    linkIconStyle =
+      "padding-left: 0.25rem; margin-right: 0.125rem; display: inline-block; vertical-align: middle;",
+    linkIconWidth = "12",
+    linkIconHeight = "12",
+    linkSelector =
+      "a[href^='http']:not(." +
+      linkClassIgnore +
+      "):not([href*='" +
+      siteName +
+      "'])",
+    linkSelectorIcon =
+      linkSelector + ":not([href*='.gov']):not([href*='.mil'])",
+    linkList,
+    linkListIcon,
+    siteName = "this site",
+    disclaimerLink = "/disclaimers",
+    disclaimerContainer = document.getElementById("exit-disclaimer"),
+    disclaimerBlockText,
+    disclaimerInlineText,
+    i;
 
   if (location.hostname !== "") {
-
-    currentSite = location.hostname.replace("www.", "");
-
+    siteName = location.hostname.replace("www.", "");
   }
 
-  externalLinks = document.querySelectorAll("a[href^='http']:not(.outlink-ignore):not([href*='" + currentSite + "'])");
-  for (j = 0; j < externalLinks.length; j++) {
+  disclaimerInlineText = "External Link: You are leaving " + siteName;
 
-    addOpener(externalLinks[j]);
+  disclaimerBlockText =
+    '<p>This icon (<img src="' +
+    linkIconData +
+    '" width="' +
+    linkIconWidth +
+    '" height="' +
+    linkIconHeight +
+    '" alt="External link icon">) means that you are leaving ' +
+    siteName +
+    ' and entering an external website. <a href="' +
+    disclaimerLink +
+    '">View full disclaimer</a>.</p>';
 
+  linkList = document.querySelectorAll(linkSelector);
+  linkListIcon = document.querySelectorAll(linkSelectorIcon);
+
+  if (linkList) {
+    for (i = 0; i < linkList.length; i++) {
+      addOpener(linkList[i]);
+    }
   }
 
-  externalLinks = document.querySelectorAll("a[href^='http']:not([href*='.gov']):not([href*='.mil']):not(.outlink-ignore):not([href*='" +
-      currentSite +
-      "'])");
-  for (j = 0; j < externalLinks.length; j++) {
-
-    addIcon(externalLinks[j]);
-
-  }
-
-  function addOpener (element) {
-
-    element.setAttribute("target", "_blank");
-    element.setAttribute("rel", "noopener noreferrer");
-    element.setAttribute("title", disclaimer + currentSite);
-
-  }
-
-  function addIcon (element) {
-
-    if (element.innerHTML.indexOf("<img") === -1) {
-
-      icon = document.createElement("img");
-
-      icon.setAttribute(
-        "src",
-        "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA3NjggNzY4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGZpbGw9IiM2NjYiIGQ9Im02NDAgNjQwaC01MTJ2LTUxMC4wOWwxMjgtMS45MXYtMTI4aC0yNTZ2NzY4aDc2OHYtMzIwaC0xMjh6bS0yNTYtNjQwIDEyOCAxMjgtMTkyIDE5MiAxMjggMTI4IDE5Mi0xOTIgMTI4IDEyOHYtMzg0eiIvPjwvc3ZnPgo="
-      );
-      icon.setAttribute(
-        "style",
-        "padding-left: .25em; display: inline-block; vertical-align: middle; width: .65em;"
-      );
-      icon.setAttribute("alt", disclaimer + currentSite);
-      icon.setAttribute("title", disclaimer + currentSite);
-      element.appendChild(icon);
-
+  if (linkListIcon) {
+    if (disclaimerContainer) {
+      showDisclaimer();
     }
 
+    for (i = 0; i < linkListIcon.length; i++) {
+      addIcon(linkListIcon[i]);
+    }
   }
 
-}());
+  function addOpener(element) {
+    element.setAttribute("target", "_blank");
+    element.setAttribute("rel", "noopener noreferrer");
+    element.setAttribute("title", disclaimerInlineText + siteName);
+  }
+
+  function addIcon(element) {
+    if (element.innerHTML.indexOf("<img") === -1) {
+      linkIcon = document.createElement("img");
+
+      linkIcon.setAttribute("src", linkIconData);
+      linkIcon.setAttribute("style", linkIconStyle);
+      linkIcon.setAttribute("alt", disclaimerInlineText + siteName);
+      linkIcon.setAttribute("width", linkIconWidth);
+      linkIcon.setAttribute("height", linkIconHeight);
+      element.appendChild(linkIcon);
+      element.classList.add(linkClass);
+    }
+  }
+
+  function showDisclaimer() {
+    disclaimerContainer.innerHTML = disclaimerBlockText;
+  }
+})();
