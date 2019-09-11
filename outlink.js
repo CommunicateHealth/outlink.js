@@ -23,6 +23,7 @@
     siteName = "this site",
     disclaimerLink = "/disclaimers",
     disclaimerContainer = document.getElementById("exit-disclaimer"),
+    disclaimerBlock = false,
     disclaimerBlockText,
     disclaimerInlineText,
     i;
@@ -58,12 +59,19 @@
   }
 
   if (linkListIcon) {
-    if (linkListIcon.length > 0 && disclaimerContainer) {
-      showDisclaimer();
+    for (i = 0; i < linkListIcon.length; i++) {
+      if (linkListIcon[i].innerHTML.indexOf("<img") === -1) {
+        addIcon(linkListIcon[i]);
+        disclaimerBlock = true;
+      }
     }
 
-    for (i = 0; i < linkListIcon.length; i++) {
-      addIcon(linkListIcon[i]);
+    if (
+      linkListIcon.length > 0 &&
+      disclaimerContainer &&
+      disclaimerBlock === true
+    ) {
+      showDisclaimer();
     }
   }
 
@@ -74,17 +82,14 @@
   }
 
   function addIcon(element) {
-    if (element.innerHTML.indexOf("<img") === -1) {
-      linkIcon = document.createElement("img");
-
-      linkIcon.setAttribute("src", linkIconData);
-      linkIcon.setAttribute("style", linkIconStyle);
-      linkIcon.setAttribute("alt", disclaimerInlineText);
-      linkIcon.setAttribute("width", linkIconWidth);
-      linkIcon.setAttribute("height", linkIconHeight);
-      element.appendChild(linkIcon);
-      element.classList.add(linkClass);
-    }
+    linkIcon = document.createElement("img");
+    linkIcon.setAttribute("src", linkIconData);
+    linkIcon.setAttribute("style", linkIconStyle);
+    linkIcon.setAttribute("alt", disclaimerInlineText);
+    linkIcon.setAttribute("width", linkIconWidth);
+    linkIcon.setAttribute("height", linkIconHeight);
+    element.appendChild(linkIcon);
+    element.classList.add(linkClass);
   }
 
   function showDisclaimer() {
