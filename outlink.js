@@ -25,14 +25,16 @@
     disclaimerContainer = document.getElementById("exit-disclaimer"),
     disclaimerBlock = false,
     disclaimerBlockText,
-    disclaimerInlineText,
+    disclaimerInlineTitle =
+      "This is an external link that will open in a new window or tab.",
+    disclaimerInlineAlt,
     i;
 
   if (location.hostname !== "") {
     siteName = location.hostname.replace("www.", "");
   }
 
-  disclaimerInlineText = "External Link: You are leaving " + siteName;
+  disclaimerInlineAlt = "This link is external to " + siteName + ".";
 
   disclaimerBlockText =
     '<p>This icon <img src="' +
@@ -78,14 +80,14 @@
   function addOpener(element) {
     element.setAttribute("target", "_blank");
     element.setAttribute("rel", "noopener noreferrer");
-    element.setAttribute("title", disclaimerInlineText);
+    element.setAttribute("title", disclaimerInlineTitle);
   }
 
   function addIcon(element) {
     linkIcon = document.createElement("img");
     linkIcon.setAttribute("src", linkIconData);
     linkIcon.setAttribute("style", linkIconStyle);
-    linkIcon.setAttribute("alt", disclaimerInlineText);
+    linkIcon.setAttribute("alt", disclaimerInlineAlt);
     linkIcon.setAttribute("width", linkIconWidth);
     linkIcon.setAttribute("height", linkIconHeight);
     element.appendChild(linkIcon);
