@@ -16,27 +16,25 @@
       "):not([href*='" +
       siteName +
       "'])",
-    linkSelectorIcon =
-      linkSelector + ":not([href*='.gov']):not([href*='.mil'])",
     linkList,
-    linkListIcon,
     siteName = "this site",
     disclaimerLink = "/disclaimers",
     disclaimerContainer = document.getElementById("exit-disclaimer"),
     disclaimerBlock = false,
-    disclaimerBlockText,
-    disclaimerInlineTitle =
-      "This is an external link that will open in a new window or tab.",
-    disclaimerInlineAlt,
+    disclaimerTextBlock,
+    disclaimerTextInline,
     i;
 
   if (location.hostname !== "") {
     siteName = location.hostname.replace("www.", "");
   }
 
-  disclaimerInlineAlt = "This link is external to " + siteName + ".";
+  disclaimerTextInline =
+    "This link is external to " +
+    siteName +
+    " and will open in a new browser window or tab.";
 
-  disclaimerBlockText =
+  disclaimerTextBlock =
     '<p>This icon <img src="' +
     linkIconData +
     '" width="' +
@@ -45,34 +43,27 @@
     linkIconHeight +
     '" alt="External link icon" style="' +
     linkIconStyle +
-    '"> means that you are leaving ' +
+    '"> indicates a link that is external to ' +
     siteName +
-    ' and entering an external website. <a href="' +
+    ' which will open in a new window or tab. <a href="' +
     disclaimerLink +
     '">View full disclaimer</a>.</p>';
 
   linkList = document.querySelectorAll(linkSelector);
-  linkListIcon = document.querySelectorAll(linkSelectorIcon);
 
   if (linkList) {
     for (i = 0; i < linkList.length; i++) {
       addOpener(linkList[i]);
-    }
-  }
 
-  if (linkListIcon) {
-    for (i = 0; i < linkListIcon.length; i++) {
-      if (linkListIcon[i].innerHTML.indexOf("<img") === -1) {
-        addIcon(linkListIcon[i]);
+      // do not apply icons to links with images inside
+      if (linkList[i].innerHTML.indexOf("<img") === -1) {
+        addIcon(linkList[i]);
         disclaimerBlock = true;
       }
     }
 
-    if (
-      linkListIcon.length > 0 &&
-      disclaimerContainer &&
-      disclaimerBlock === true
-    ) {
+    // if icons are displayed on page, show disclaimer text
+    if (disclaimerContainer && disclaimerBlock === true) {
       showDisclaimer();
     }
   }
@@ -80,14 +71,14 @@
   function addOpener(element) {
     element.setAttribute("target", "_blank");
     element.setAttribute("rel", "noopener noreferrer");
-    element.setAttribute("title", disclaimerInlineTitle);
   }
 
   function addIcon(element) {
     linkIcon = document.createElement("img");
     linkIcon.setAttribute("src", linkIconData);
     linkIcon.setAttribute("style", linkIconStyle);
-    linkIcon.setAttribute("alt", disclaimerInlineAlt);
+    linkIcon.setAttribute("alt", disclaimerTextInline);
+    linkIcon.setAttribute("title", disclaimerTextInline);
     linkIcon.setAttribute("width", linkIconWidth);
     linkIcon.setAttribute("height", linkIconHeight);
     element.appendChild(linkIcon);
@@ -95,6 +86,6 @@
   }
 
   function showDisclaimer() {
-    disclaimerContainer.innerHTML = disclaimerBlockText;
+    disclaimerContainer.innerHTML = disclaimerTextBlock;
   }
 })();
