@@ -14,6 +14,8 @@ External link handling
 - Vanilla JavaScript, no dependencies
 - Adds `class="outlink"` to all processed links
 - Looks for `class="outlink-ignore"` on link tag to skip processing
+- Adding hex color value as `data-icon-color="#f012be` attribute on link will change color of external link icon to fuchsia
+- Adding size value as `data-icon-size="16"` attribute on link will change the size of external link icon to 16px x 16px
 
 ## Demo page
 
