@@ -1,70 +1,64 @@
 (function outlink() {
   "use strict";
 
-  var linkClass = "outlink",
-    linkClassIgnore = "outlink-ignore",
-    linkIcon,
-    linkIconData =
-      "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA3NjggNzY4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGZpbGw9IiM2NjYiIGQ9Im02NDAgNjQwaC01MTJ2LTUxMC4wOWwxMjgtMS45MXYtMTI4aC0yNTZ2NzY4aDc2OHYtMzIwaC0xMjh6bS0yNTYtNjQwIDEyOCAxMjgtMTkyIDE5MiAxMjggMTI4IDE5Mi0xOTIgMTI4IDEyOHYtMzg0eiIvPjwvc3ZnPgo=",
-    linkIconStyle =
+  var i,
+    olIcon,
+    olLinkList,
+    olDisclaimer,
+    olIconSize,
+    olIconColor,
+    olClass = "outlink",
+    olClassIgnore = "outlink-ignore",
+    olIconStyle =
       "margin: 0 0.25rem; display: inline-block; vertical-align: baseline;",
-    linkIconWidth = "12",
-    linkIconHeight = "12",
-    linkSelector =
-      "a[href^='http']:not(." +
-      linkClassIgnore +
-      "):not([href*='" +
-      siteName +
-      "'])",
-    linkList,
-    siteName = "this site",
-    disclaimerLink = "/disclaimers",
-    disclaimerContainer = document.getElementById("exit-disclaimer"),
-    disclaimerBlock = false,
-    disclaimerTextBlock,
-    disclaimerTextInline,
-    i;
+    olSiteName = "this site",
+    olSelector =
+      "a[href^='http']" +
+      ":not(." +
+      olClassIgnore +
+      ")" +
+      ":not([href*='" +
+      olSiteName +
+      "'])";
 
+  // Set disclaimer text after site name is known
   if (location.hostname !== "") {
-    siteName = location.hostname.replace("www.", "");
+    olSiteName = location.hostname.replace("www.", "");
   }
 
-  disclaimerTextInline =
+  olDisclaimer =
     "This link is external to " +
-    siteName +
+    olSiteName +
     " and will open in a new browser window or tab.";
 
-  disclaimerTextBlock =
-    '<p>This icon <img src="' +
-    linkIconData +
-    '" width="' +
-    linkIconWidth +
-    '" height="' +
-    linkIconHeight +
-    '" alt="External link icon" style="' +
-    linkIconStyle +
-    '"> indicates a link that is external to ' +
-    siteName +
-    ' which will open in a new window or tab. <a href="' +
-    disclaimerLink +
-    '">View full disclaimer</a>.</p>';
+  // Select all links with stated selector
+  olLinkList = document.querySelectorAll(olSelector);
 
-  linkList = document.querySelectorAll(linkSelector);
+  if (olLinkList) {
+    for (i = 0; i < olLinkList.length; i++) {
+      // open all external links in new windows
+      addOpener(olLinkList[i]);
 
-  if (linkList) {
-    for (i = 0; i < linkList.length; i++) {
-      addOpener(linkList[i]);
+      // catch icon color overrides
+      olIconColor = "#6b6b6b";
+      if (olLinkList[i].dataset.iconColor) {
+        olIconColor = olLinkList[i].dataset.iconColor;
+      }
+
+      // catch icon size overrides
+      olIconSize = 12;
+      if (olLinkList[i].dataset.iconSize) {
+        olIconSize = olLinkList[i].dataset.iconSize;
+      }
 
       // do not apply icons to links with images inside
-      if (linkList[i].innerHTML.indexOf("<img") === -1) {
-        addIcon(linkList[i]);
-        disclaimerBlock = true;
-      }
-    }
+      if (olLinkList[i].innerHTML.indexOf("<img") === -1) {
+        // create Base64 icon to spec
+        olIcon = buildIcon(olIconColor, olIconSize);
 
-    // if icons are displayed on page, show disclaimer text
-    if (disclaimerContainer && disclaimerBlock === true) {
-      showDisclaimer();
+        // add icon to link
+        addIcon(olLinkList[i], olIcon, olIconSize);
+      }
     }
   }
 
@@ -73,19 +67,34 @@
     element.setAttribute("rel", "noopener noreferrer");
   }
 
-  function addIcon(element) {
-    linkIcon = document.createElement("img");
-    linkIcon.setAttribute("src", linkIconData);
-    linkIcon.setAttribute("style", linkIconStyle);
-    linkIcon.setAttribute("alt", disclaimerTextInline);
-    linkIcon.setAttribute("title", disclaimerTextInline);
-    linkIcon.setAttribute("width", linkIconWidth);
-    linkIcon.setAttribute("height", linkIconHeight);
-    element.appendChild(linkIcon);
-    element.classList.add(linkClass);
+  function addIcon(element, icon, size) {
+    // create icon image element
+    olIcon = document.createElement("img");
+    olIcon.setAttribute("src", icon);
+    olIcon.setAttribute("style", olIconStyle);
+    olIcon.setAttribute("alt", olDisclaimer);
+    olIcon.setAttribute("title", olDisclaimer);
+    olIcon.setAttribute("width", size);
+    olIcon.setAttribute("height", size);
+
+    // add image inside link
+    element.appendChild(olIcon);
+    element.classList.add(olClass);
   }
 
-  function showDisclaimer() {
-    disclaimerContainer.innerHTML = disclaimerTextBlock;
+  function buildIcon(color, size) {
+    var olIconCode =
+      '<svg width="' +
+      size +
+      '" height="' +
+      size +
+      '" viewBox="0 0 768 768" xmlns="http://www.w3.org/2000/svg"><path fill="' +
+      color +
+      '" d="m640 640h-512v-510.09l128-1.91v-128h-256v768h768v-320h-128zm-256-640 128 128-192 192 128 128 192-192 128 128v-384z"/></svg>';
+
+    // Base64 encode SVG for increased IE/Edge support
+    olIconCode = "data:image/svg+xml;base64," + btoa(olIconCode);
+
+    return olIconCode;
   }
 })();
