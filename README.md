@@ -10,7 +10,7 @@ External link handling
   - [The performance benefits of rel=noopener](https://jakearchibald.com/2016/performance-benefits-of-rel-noopener/)
     > Linking to another page using `target="_blank"` will run the new page on same process as your page. If the new page is executing expensive JS, your page's performance may suffer.
 - Disclaimer text and alt text pulls in current domain name (with fallback to "this site")
-- Inlined external SVG link icon
+- Inlined external link icon as SVG
 - Vanilla JavaScript, no dependencies
 - Adds `class="outlink"` to all processed links
 - Looks for `class="outlink-ignore"` on link tag to skip processing
