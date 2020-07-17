@@ -12,10 +12,24 @@
     olClassIgnore = "outlink-ignore",
     olIconStyle =
       "margin: 0 0.25rem; display: inline-block; vertical-align: baseline;",
-    olSiteName = "this site";
+    olSiteName = "this site",
+    Drupal = window.Drupal;
+
+  // Stub out Drupal.t translate method if this is used on a non-Drupal site
+  if (typeof Drupal === "undefined") {
+    // eslint-disable-next-line no-param-reassign
+    Drupal = {};
+  }
+  if (typeof Drupal.t === "undefined") {
+    Drupal.t = function t(text) {
+      return text;
+    };
+  }
 
   // Set disclaimer text after site name is known
-  if (location.hostname !== "") {
+  if (location.hostname === "") {
+    olSiteName = Drupal.t("this site");
+  } else {
     olSiteName = location.hostname.replace("www.", "");
   }
 
@@ -30,9 +44,9 @@
     "'])";
 
   olDisclaimer =
-    "This link is external to " +
+    Drupal.t("This link is external to ") +
     olSiteName +
-    " and will open in a new browser window or tab.";
+    Drupal.t(" and will open in a new browser window or tab.");
 
   // Select all links with stated selector
   olLinkList = document.querySelectorAll(olSelector);
