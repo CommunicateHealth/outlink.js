@@ -12,7 +12,7 @@
     olClassIgnore = "outlink-ignore",
     olIconStyle =
       "margin: 0 0.25rem; display: inline-block; vertical-align: baseline;",
-    olSiteName = "this site",
+    olSiteName,
     Drupal = window.Drupal;
 
   // Stub out Drupal.t translate method if this is used on a non-Drupal site
