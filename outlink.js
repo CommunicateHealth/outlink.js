@@ -7,24 +7,27 @@
     olDisclaimer,
     olIconSize,
     olIconColor,
+    olSelector,
     olClass = "outlink",
     olClassIgnore = "outlink-ignore",
     olIconStyle =
       "margin: 0 0.25rem; display: inline-block; vertical-align: baseline;",
-    olSiteName = "this site",
-    olSelector =
-      "a[href^='http']" +
-      ":not(." +
-      olClassIgnore +
-      ")" +
-      ":not([href*='" +
-      olSiteName +
-      "'])";
+    olSiteName = "this site";
 
   // Set disclaimer text after site name is known
   if (location.hostname !== "") {
     olSiteName = location.hostname.replace("www.", "");
   }
+
+  // Set CSS selector with exclusions
+  olSelector =
+    "a[href^='http']" +
+    ":not(." +
+    olClassIgnore +
+    ")" +
+    ":not([href*='" +
+    olSiteName +
+    "'])";
 
   olDisclaimer =
     "This link is external to " +
