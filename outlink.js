@@ -1,3 +1,4 @@
+// outlink.js 0.5.0 - https://git.io/JJCcF
 (function outlink() {
   "use strict";
 
