@@ -1,4 +1,4 @@
-// outlink.js 0.5.0 - https://git.io/JJCcF
+// outlink.js 0.6.0 - https://git.io/JJCcF
 (function outlink() {
   "use strict";
 
@@ -9,11 +9,12 @@
     olIconSize,
     olIconColor,
     olSelector,
+    olSiteName,
     olClass = "outlink",
     olClassIgnore = "outlink-ignore",
     olIconStyle =
       "margin: 0 0.25rem; display: inline-block; vertical-align: baseline;",
-    olSiteName,
+    olNewWindow = false,
     Drupal = window.Drupal;
 
   // Stub out Drupal.t translate method if this is used on a non-Drupal site
@@ -44,18 +45,25 @@
     olSiteName +
     "'])";
 
-  olDisclaimer =
-    Drupal.t("This link is external to ") +
-    olSiteName +
-    Drupal.t(" and will open in a new browser window or tab.");
+  olDisclaimer = Drupal.t("This link is external to ") + olSiteName;
+
+  if (olNewWindow === true) {
+    olDisclaimer += Drupal.t(" and will open in a new browser window or tab");
+  }
+  olDisclaimer += ".";
 
   // Select all links with stated selector
   olLinkList = document.querySelectorAll(olSelector);
 
   if (olLinkList) {
     for (i = 0; i < olLinkList.length; i++) {
-      // open all external links in new windows
-      addOpener(olLinkList[i]);
+      if (olNewWindow === true) {
+        // open all external links in new windows
+        addOpener(olLinkList[i]);
+      } else {
+        // prevent external links from opening in new windows
+        removeOpener(olLinkList[i]);
+      }
 
       // catch icon color overrides
       olIconColor = "#6b6b6b";
@@ -83,6 +91,11 @@
   function addOpener(element) {
     element.setAttribute("target", "_blank");
     element.setAttribute("rel", "noopener noreferrer");
+  }
+
+  function removeOpener(element) {
+    element.removeAttribute("target");
+    element.removeAttribute("rel");
   }
 
   function addIcon(element, icon, size) {

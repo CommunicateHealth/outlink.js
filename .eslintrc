@@ -29,7 +29,7 @@
     "array-callback-return": "error",
     "block-scoped-var": "error",
     "class-methods-use-this": "error",
-    "complexity": ["warn", 10],
+    "complexity": ["warn", 15],
     "consistent-return": "error",
     "curly": "error",
     "default-case": "error",

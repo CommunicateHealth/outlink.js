@@ -11,7 +11,8 @@
   "scripts": {
     "eslint": "eslint **/*.js --fix",
     "lint": "npm run prettier && npm run eslint",
-    "prettier": "prettier --write **/*.{js,json,md}"
+    "prettier": "prettier --write **/*.{js,json,md}",
+    "serve": "browser-sync start --server --files \"**/*.html\""
   },
   "husky": {
     "hooks": {
@@ -19,7 +20,8 @@
     }
   },
   "devDependencies": {
-    "eslint": "^7.3.1",
+    "browser-sync": "^2.26.12",
+    "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-es5": "^1.5.0",
     "eslint-plugin-prettier": "^3.1.4",
