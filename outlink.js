@@ -17,6 +17,8 @@
     olNewWindow = false,
     Drupal = window.Drupal;
 
+  window.outlink = outlink;
+
   // Stub out Drupal.t translate method if this is used on a non-Drupal site
   if (typeof Drupal === "undefined") {
     // eslint-disable-next-line no-param-reassign
