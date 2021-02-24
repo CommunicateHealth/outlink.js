@@ -1,4 +1,4 @@
-// outlink.js 0.6.0 - https://git.io/JJCcF
+// outlink.js 0.7.0 - https://git.io/JJCcF
 (function outlink() {
   "use strict";
 
@@ -16,6 +16,8 @@
       "margin: 0 0.25rem; display: inline-block; vertical-align: baseline;",
     olNewWindow = false,
     Drupal = window.Drupal;
+
+  window.outlink = outlink;
 
   // Stub out Drupal.t translate method if this is used on a non-Drupal site
   if (typeof Drupal === "undefined") {
