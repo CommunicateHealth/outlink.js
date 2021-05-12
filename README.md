@@ -5,7 +5,7 @@ External link handling
 ## Install
 
 ```
-npm install outlink.js
+npm install @communicatehealth/outlink.js
 ```
 
 - External site links (outside of current domain) show icon, disclaimer, and optionally open in new window/tab
