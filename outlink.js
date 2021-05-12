@@ -59,6 +59,7 @@
 
   if (olLinkList) {
     for (i = 0; i < olLinkList.length; i++) {
+      addRel(olLinkList[i]);
       if (olNewWindow === true) {
         // open all external links in new windows
         addOpener(olLinkList[i]);
@@ -92,12 +93,14 @@
 
   function addOpener(element) {
     element.setAttribute("target", "_blank");
-    element.setAttribute("rel", "noopener noreferrer");
   }
 
   function removeOpener(element) {
     element.removeAttribute("target");
-    element.removeAttribute("rel");
+  }
+
+  function addRel(element) {
+    element.setAttribute("rel", "noopener noreferrer");
   }
 
   function addIcon(element, icon, size) {
