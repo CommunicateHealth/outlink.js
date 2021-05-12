@@ -1,4 +1,4 @@
-// outlink.js 0.7.0 - https://git.io/JJCcF
+// outlink.js 1.0.0 - https://git.io/JJCcF
 (function outlink() {
   "use strict";
 
