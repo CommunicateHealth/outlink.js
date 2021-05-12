@@ -2,6 +2,12 @@
 
 External link handling
 
+## Install
+
+```
+npm install outlink.js
+```
+
 - External site links (outside of current domain) show icon, disclaimer, and optionally open in new window/tab
 - Explicit notice of new window/tab behavior is read aloud by assistive technology to satisfy [WCAG 2.1 – 3.3.2 On Input](https://www.w3.org/TR/WCAG21/#on-input)
 - Adds `rel="noopener noreferrer"` to link tags for security and performance improvements:
