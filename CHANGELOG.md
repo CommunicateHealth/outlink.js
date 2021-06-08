@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.4
+
+- Update domain name filter so that domain names that contain the current domain name are considered outlinks
+
+## 1.0.3
+
+- No changes
+
 ## 1.0.2
 
 - Update install instructions
