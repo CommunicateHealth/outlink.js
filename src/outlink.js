@@ -43,7 +43,10 @@
     ":not(." +
     olClassIgnore +
     ")" +
-    ":not([href*='" +
+    ":not([href*='//" +
+    olSiteName +
+    "'])" +
+    ":not([href*='//www." +
     olSiteName +
     "'])";
 
