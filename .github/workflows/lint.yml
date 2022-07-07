@@ -7,7 +7,6 @@ on:
 env:
   WORK_PATH: "./"
   LOCK_PATH: "./package-lock.json"
-  NODE_VERSION: "16"
 
 jobs:
   lint:
@@ -15,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Node.js ${{ env.NODE_VERSION }}.x
+      - name: Set up Node.js LTS
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: "lts/*"
           cache: "npm"
           cache-dependency-path: ${{ env.LOCK_PATH }}
       - name: Install dependencies
