@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+- Update NPM dependencies
+
 ## 1.0.4
 
 - Update domain name filter so that domain names that contain the current domain name are considered outlinks
